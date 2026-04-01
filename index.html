@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Football Data Scientist</title>
+    <style>
+        /* Importamos fuentes: Bebas Neue (titulares limpios), Montserrat (cuerpo), Permanent Marker (estilo grafiti P5) */
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&family=Permanent+Marker&display=swap');
+
+        :root {
+            --p5-red: #E60012;
+            --p5-black: #111111;
+            --como-blue: #003D71; /* Azul elegante del Como 1907 */
+            --como-light: #8BA6B5;
+            --white: #F8F8F8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--p5-black);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            /* Patrón de puntos en el fondo estilo cómic/P5 usando el azul del Como */
+            background-image: radial-gradient(var(--como-blue) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0;
+        }
+
+        /* Tipografía agresiva para títulos */
+        h1, h2, h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .marker-font {
+            font-family: 'Permanent Marker', cursive;
+            color: var(--p5-red);
+            transform: rotate(-3deg);
+            display: inline-block;
+        }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* Transición brusca del negro al Azul Lago */
+            background: linear-gradient(135deg, var(--p5-black) 40%, var(--como-blue) 100%);
+            /* Corte diagonal en la parte inferior estilo menú de P5 */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            text-shadow: 4px 4px 0px var(--p5-red);
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            background-color: var(--white);
+            color: var(--p5-black);
+            padding: 5px 20px;
+            margin-top: 10px;
+            /* Rectángulo rasgado */
+            clip-path: polygon(2% 0, 100% 0, 98% 100%, 0% 100%);
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        /* Sección de Proyectos (The Palace) */
+        .projects-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            color: var(--white);
+            border-bottom: 4px solid var(--como-blue);
+            display: inline-block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Tarjetas de Proyecto estilo Persona 5 */
+        .card {
+            background-color: var(--white);
+            color: var(--p5-black);
+            padding: 20px;
+            position: relative;
+            /* Polígono asimétrico */
+            clip-path: polygon(0 0, 95% 0, 100% 5%, 100% 100%, 5% 100%, 0 95%);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-left: 8px solid var(--como-blue);
+            cursor: pointer;
+        }
+
+        /* Efecto Hover: Invierte los colores a Rojo P5 y gira agresivamente */
+        .card:hover {
+            transform: scale(1.05) rotate(-1.5deg);
+            background-color: var(--p5-red);
+            color: var(--white);
+            border-left: 8px solid var(--p5-black);
+        }
+
+        .card:hover .tag {
+            background-color: var(--p5-black);
+            color: var(--white);
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: var(--como-light);
+            color: var(--p5-black);
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: var(--p5-black);
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+        }
+
+        .card:hover .btn {
+            background-color: var(--white);
+            color: var(--p5-red);
+        }
+
+        /* Footer / Contacto */
+        footer {
+            background-color: var(--como-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 50px 20px;
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+            margin-top: 50px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+        
+        .social-links a:hover {
+            color: var(--p5-red);
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3rem; text-shadow: 2px 2px 0px var(--p5-red); }
+            .hero-subtitle { font-size: 1.2rem; }
+            header { clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="hero-title">DATA SCIENTIST</h1>
+        <div class="hero-subtitle">ESPECIALISTA EN <span class="marker-font">FÚTBOL</span></div>
+        <p style="margin-top: 20px; font-weight: bold; color: var(--como-light); text-align: center;">
+            PYTHON | TRACKING DATA | SCOUTING
+        </p>
+    </header>
+
+    <section class="projects-section">
+        <h2 class="section-title"><span class="marker-font">THE PALACE</span> (PROYECTOS)</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>SIMILITUD DE JUGADORES</h3>
+                <p>Algoritmo de clustering K-Means para encontrar perfiles similares en ligas. Modelo enfocado en métricas de pase progresivo y presión.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Scikit-Learn</span>
+                    <span class="tag">StatsBomb</span>
+                </div>
+                <a href="#" class="btn">Ver Código</a>
+            </div>
+
+            <div class="card">
+                <h3>ANÁLISIS DE TRACKING</h3>
+                <p>Evaluación de ocupación de espacios (Pitch Control) utilizando datos de tracking espacial. Identificación de debilidades en la línea defensiva.</p>
+                <div class="tags">
+                    <span class="tag">mplsoccer</span>
+                    <span class="tag">Pandas</span>
+                    <span class="tag">Tracking</span>
+                </div>
+                <a href="#" class="btn">Ver Informe</a>
+            </div>
+
+            <div class="card">
+                <h3>AUTOMATIZACIÓN SCOUTING</h3>
+                <p>Pipeline de datos diseñado para extraer métricas semanales y generar alertas automáticas sobre jugadores destacados.</p>
+                <div class="tags">
+                    <span class="tag">n8n</span>
+                    <span class="tag">APIs</span>
+                    <span class="tag">Data Pipeline</span>
+                </div>
+                <a href="#" class="btn">Ver Workflow</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">¿LISTO PARA FICHARME?</h2>
+        <div class="social-links">
+            <a href="#">GITHUB</a>
+            <a href="#">LINKEDIN</a>
+            <a href="#">EMAIL</a>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.7;">Diseño inspirado en Persona 5 x Como 1907</p>
+    </footer>
+
+    <script>
+        // Efecto visual simple al cargar: Las tarjetas "caen" en su lugar
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 150 * index);
+            });
+        });
+    </script>
+</body>
+</html>
