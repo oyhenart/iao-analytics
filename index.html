@@ -19,12 +19,19 @@
   --gold:#d4af37;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;}
+
+/* Reseteo vital para que los links no se pongan azules */
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
 body{
   font-family:'Inter',sans-serif;
   background: radial-gradient(circle at top, rgba(212,175,55,0.08), transparent 20%), #050505;
   color:var(--text);
+  line-height: 1.5;
 }
 
 /* ===== CONTAINER ===== */
@@ -53,6 +60,7 @@ body{
   margin-top:20px;
   color:var(--muted);
   max-width:500px;
+  font-size: 1.1rem;
 }
 
 .cta{
@@ -63,17 +71,18 @@ body{
 }
 
 .btn{
-  padding:12px 16px;
+  padding:12px 24px;
   border:1px solid var(--stroke);
   background:var(--panel);
   color:white;
-  text-decoration:none;
-  transition:.3s;
+  transition:.3s ease;
   border-radius:10px;
+  font-weight: 600;
 }
 
 .btn:hover{
   background:linear-gradient(180deg,var(--gold),#7a5a1a);
+  border-color: var(--gold);
   color:black;
 }
 
@@ -83,75 +92,110 @@ body{
 }
 
 .section h2{
-  margin-bottom:20px;
+  margin-bottom:25px;
+  font-family:'Cormorant Garamond',serif;
+  font-size: 2.2rem;
+  color: var(--gold);
+  border-bottom: 1px solid var(--stroke);
+  padding-bottom: 10px;
 }
 
 /* ===== GRID ===== */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:16px;
+  gap:20px;
 }
 
 /* ===== CARD ===== */
 .card{
-  display:block;
+  display:flex;
+  flex-direction: column;
   border-radius:16px;
   overflow:hidden;
   background:var(--panel);
   border:1px solid var(--stroke);
-  transition:.3s;
+  transition:.4s ease;
 }
 
-.card img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
+/* Reemplazo elegante para las imágenes rotas */
+.card-visual {
+  height: 180px;
+  background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(0,0,0,0.8)),
+              repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px);
+  border-bottom: 1px solid var(--stroke);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(212,175,55,0.5);
+  font-family: 'Inter', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .card-content{
-  padding:16px;
+  padding:20px;
+  flex-grow: 1;
 }
 
-.card h3{font-size:1rem}
-.card p{font-size:.85rem;color:var(--muted)}
+.card h3{
+  font-size:1.2rem; 
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.card p{
+  font-size:.9rem;
+  color:var(--muted);
+}
 
 .card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 10px 40px rgba(0,0,0,.6);
+  transform:translateY(-5px);
+  border-color: rgba(212,175,55,0.4);
+  box-shadow:0 15px 30px rgba(0,0,0,.8);
 }
 
-/* ===== CAPABILITIES ===== */
+.card:hover .card-visual {
+  color: var(--gold);
+  background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(0,0,0,0.9)),
+              repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px);
+}
+
+/* ===== CAPABILITIES & STACK ===== */
 .cap{
   padding:20px;
-  border-radius:16px;
+  border-radius:12px;
   border:1px solid var(--stroke);
+  background: var(--panel);
   transition:.3s;
+  text-align: center;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cap span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
 }
 
 .cap:hover{
   background:rgba(212,175,55,0.08);
-}
-
-/* ===== EMBED ===== */
-.embed{
-  border-radius:16px;
-  overflow:hidden;
-  border:1px solid var(--stroke);
-}
-
-.embed iframe{
-  width:100%;
-  height:350px;
-  border:none;
+  border-color: rgba(212,175,55,0.3);
+  transform: translateY(-2px);
 }
 
 /* ===== FOOTER ===== */
 footer{
-  margin:60px 0;
+  margin:80px 0 40px;
   text-align:center;
   color:var(--muted);
   font-size:.85rem;
+  border-top: 1px solid var(--stroke);
+  padding-top: 40px;
 }
 
 </style>
@@ -161,82 +205,80 @@ footer{
 
 <div class="container">
 
-<!-- HERO -->
 <section class="hero">
-  <h1>Football <span>Data Science</span><br>Tactical Intelligence</h1>
+  <h1>Football <span>Data Science</span><br>& Tactical Intelligence</h1>
 
   <p>
     Argentinian perspective. European ambition.  
-    Data pipelines, match analysis and football insights.
+    Specialized in data pipelines, match analysis, and translating complex football metrics into pitch-ready insights.
   </p>
 
   <div class="cta">
-    <a href="#projects" class="btn">Projects</a>
-    <a href="#contact" class="btn">Contact</a>
+    <a href="#projects" class="btn">View Projects</a>
+    <a href="#contact" class="btn">Contact Me</a>
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects" class="section">
   <h2>Featured Projects</h2>
 
   <div class="grid">
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/Mapa_de_calor.ipynb" target="_blank">
-      <img src="https://via.placeholder.com/400x200">
+      <div class="card-visual">[ Viz: Spatial Heatmap ]</div>
       <div class="card-content">
         <h3>World Cup Final Heatmap</h3>
-        <p>Spatial analysis of Argentina 2022 final.</p>
+        <p>Spatial analysis and pass networking of the Argentina 2022 final.</p>
       </div>
     </a>
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/mundial_2022_statsbomb.ipynb" target="_blank">
-      <img src="https://via.placeholder.com/400x200">
+      <div class="card-visual">[ Viz: Event Data ]</div>
       <div class="card-content">
-        <h3>World Cup Analysis</h3>
-        <p>StatsBomb tournament insights.</p>
+        <h3>Tournament Analytics</h3>
+        <p>Deep dive into StatsBomb open data for tournament-wide performance insights.</p>
       </div>
     </a>
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/plantilla_understat_pro.ipynb" target="_blank">
-      <img src="https://via.placeholder.com/400x200">
+      <div class="card-visual">[ Viz: Predictive ]</div>
       <div class="card-content">
-        <h3>xG Model</h3>
-        <p>Expected goals modeling.</p>
+        <h3>xG Modeling</h3>
+        <p>Expected goals (xG) analysis and finishing variance modeling.</p>
       </div>
     </a>
 
   </div>
 </section>
 
-<!-- CAPABILITIES -->
 <section class="section">
-  <h2>Capabilities</h2>
+  <h2>Core Capabilities</h2>
 
   <div class="grid">
-    <div class="cap">Tactical Analysis</div>
-    <div class="cap">Data Engineering</div>
-    <div class="cap">Scouting Models</div>
-    <div class="cap">Visualization</div>
+    <div class="cap">Tactical Analysis <span>Pattern recognition</span></div>
+    <div class="cap">Data Engineering <span>ETL & Pipelines</span></div>
+    <div class="cap">Scouting Models <span>Similarity & Clustering</span></div>
+    <div class="cap">Visualization <span>Actionable reports</span></div>
   </div>
 </section>
 
-<!-- EMBED -->
 <section class="section">
-  <h2>Live Work</h2>
+  <h2>Tech Stack & Tools</h2>
 
-  <div class="embed">
-    <iframe src="https://example.com"></iframe>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+    <div class="cap">Python <span>Pandas, NumPy, Scikit</span></div>
+    <div class="cap">mplsoccer <span>Pitch Visualization</span></div>
+    <div class="cap">n8n <span>Workflow Automation</span></div>
+    <div class="cap">SQL <span>Database Management</span></div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" class="section">
-  <h2>Contact</h2>
+  <h2>Let's Connect</h2>
 
   <div class="cta">
-    <a href="https://www.linkedin.com/in/israel-oyhenart" class="btn">LinkedIn</a>
-    <a href="https://github.com/oyhenart/IAO-Football-Analytics" class="btn">GitHub</a>
+    <a href="https://www.linkedin.com/in/israel-oyhenart" target="_blank" class="btn">LinkedIn Profile</a>
+    <a href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" class="btn">GitHub Repository</a>
   </div>
 </section>
 
