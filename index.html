@@ -4,25 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Israel Analytics | Football Data Portfolio</title>
+  <meta name="description" content="Portfolio de Israel Analytics: data analysis en fútbol, scouting, visualización y automatización. Inspirado en Como 1907, elegante y responsive." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg: #07111f;
-      --bg-2: #0b1729;
-      --surface: rgba(255,255,255,.06);
-      --surface-2: rgba(255,255,255,.09);
-      --stroke: rgba(255,255,255,.12);
-      --text: #f4f7fb;
-      --muted: rgba(244,247,251,.72);
-      --como: #0b4aa2;
-      --como-deep: #05284f;
-      --arg: #74c8ff;
-      --arg-soft: rgba(116,200,255,.16);
-      --gold: #d8b26b;
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
-      --radius: 24px;
+      --bg:#07111f;
+      --bg2:#0b1729;
+      --surface:rgba(255,255,255,.06);
+      --surface2:rgba(255,255,255,.09);
+      --stroke:rgba(255,255,255,.12);
+      --text:#f5f8fc;
+      --muted:rgba(245,248,252,.72);
+      --como:#0b4aa2;
+      --como2:#05284f;
+      --arg:#74c8ff;
+      --argsoft:rgba(116,200,255,.14);
+      --gold:#d8b26b;
+      --shadow:0 24px 80px rgba(0,0,0,.35);
+      --radius:24px;
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -34,7 +35,7 @@
       background:
         radial-gradient(circle at top left, rgba(11,74,162,.28), transparent 32%),
         radial-gradient(circle at bottom right, rgba(116,200,255,.12), transparent 28%),
-        linear-gradient(180deg, var(--bg), var(--bg-2));
+        linear-gradient(180deg, var(--bg), var(--bg2));
       overflow-x:hidden;
     }
 
@@ -46,15 +47,15 @@
       background-image:
         linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.15));
-      opacity:.35;
+      background-size:42px 42px;
+      opacity:.32;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.7), rgba(0,0,0,.12));
     }
 
     .container{
       width:min(1180px, calc(100% - 32px));
       margin:0 auto;
-      padding:24px 0 40px;
+      padding:24px 0 44px;
       position:relative;
       z-index:1;
     }
@@ -64,7 +65,7 @@
       justify-content:space-between;
       align-items:center;
       gap:16px;
-      padding:10px 0 24px;
+      padding:10px 0 22px;
     }
 
     .brand{
@@ -78,8 +79,8 @@
       height:54px;
       border-radius:50%;
       background:
-        radial-gradient(circle at 30% 30%, #ffffff, #d9e7ff 22%, var(--como) 23%, var(--como-deep) 100%);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.16), inset 0 0 0 2px rgba(255,255,255,.08);
+        radial-gradient(circle at 30% 30%, #fff, #dbe8ff 22%, var(--como) 23%, var(--como2) 100%);
+      box-shadow:0 0 0 1px rgba(255,255,255,.16), inset 0 0 0 2px rgba(255,255,255,.08);
       position:relative;
       flex:0 0 auto;
     }
@@ -93,28 +94,28 @@
       font-family:'Cinzel',serif;
       font-weight:700;
       font-size:1rem;
-      letter-spacing:.12em;
+      letter-spacing:.14em;
       color:#fff;
     }
 
     .brand h1{
       font-family:'Cinzel',serif;
-      font-size:1.15rem;
-      letter-spacing:.14em;
+      font-size:1.12rem;
       text-transform:uppercase;
+      letter-spacing:.14em;
       line-height:1.1;
     }
 
     .brand p{
+      margin-top:4px;
       color:var(--muted);
       font-size:.92rem;
-      margin-top:4px;
     }
 
     .flag{
       display:flex;
-      gap:6px;
       align-items:center;
+      gap:6px;
       padding:10px 14px;
       border:1px solid var(--stroke);
       background:rgba(255,255,255,.05);
@@ -130,17 +131,17 @@
 
     .hero{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
+      grid-template-columns:1.15fr .85fr;
       gap:20px;
-      min-height: calc(100vh - 112px);
+      min-height:calc(100vh - 110px);
     }
 
     .panel{
       border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-      backdrop-filter: blur(18px);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+      backdrop-filter:blur(18px);
       overflow:hidden;
     }
 
@@ -149,22 +150,21 @@
       display:flex;
       flex-direction:column;
       justify-content:space-between;
-      position:relative;
     }
 
     .eyebrow{
       display:inline-flex;
       gap:10px;
       align-items:center;
+      width:fit-content;
       padding:8px 12px;
-      border:1px solid rgba(116,200,255,.25);
-      background:rgba(116,200,255,.08);
       border-radius:999px;
-      color:#dff3ff;
+      border:1px solid rgba(116,200,255,.24);
+      background:rgba(116,200,255,.08);
+      color:#eaf7ff;
       font-size:.82rem;
       letter-spacing:.12em;
       text-transform:uppercase;
-      width:fit-content;
     }
 
     .eyebrow::before{
@@ -174,15 +174,11 @@
       box-shadow:0 0 0 6px rgba(116,200,255,.12);
     }
 
-    .headline{
-      margin-top:22px;
-      max-width:780px;
-    }
-
+    .headline{margin-top:22px;max-width:780px}
     .headline h2{
       font-family:'Cinzel',serif;
-      font-size:clamp(2.6rem, 5vw, 5.6rem);
-      line-height:.95;
+      font-size:clamp(2.6rem, 5vw, 5.8rem);
+      line-height:.94;
       letter-spacing:.02em;
       text-transform:uppercase;
     }
@@ -194,10 +190,10 @@
 
     .headline p{
       margin-top:18px;
-      max-width:620px;
+      max-width:650px;
       color:var(--muted);
       font-size:1.05rem;
-      line-height:1.7;
+      line-height:1.75;
     }
 
     .metrics{
@@ -216,10 +212,10 @@
 
     .metric strong{
       display:block;
-      font-size:1.7rem;
-      color:#fff;
-      line-height:1;
       margin-bottom:6px;
+      color:#fff;
+      font-size:1.7rem;
+      line-height:1;
     }
 
     .metric span{
@@ -229,9 +225,9 @@
 
     .nav{
       display:grid;
+      grid-template-columns:repeat(4,1fr);
       gap:12px;
       margin-top:26px;
-      grid-template-columns:repeat(4, minmax(0,1fr));
     }
 
     .nav button{
@@ -245,30 +241,30 @@
       border:1px solid rgba(255,255,255,.08);
       font:inherit;
       font-weight:700;
-      letter-spacing:.08em;
       text-transform:uppercase;
+      letter-spacing:.08em;
       transition:.25s ease;
     }
 
     .nav button:hover,
     .nav button.active{
       transform:translateY(-2px);
-      background:linear-gradient(180deg, rgba(11,74,162,.95), rgba(5,40,79,.95));
+      background:linear-gradient(180deg, var(--como), var(--como2));
       border-color:rgba(116,200,255,.35);
-      box-shadow:0 14px 30px rgba(11,74,162,.18);
+      box-shadow:0 14px 30px rgba(11,74,162,.2);
     }
 
     .right{
+      padding:18px;
       display:flex;
       flex-direction:column;
       gap:18px;
-      padding:18px;
     }
 
     .content{
       position:relative;
       flex:1;
-      min-height: 520px;
+      min-height:560px;
     }
 
     .section{
@@ -280,7 +276,7 @@
       transition:.35s ease;
       padding:24px;
       border-radius:22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border:1px solid rgba(255,255,255,.08);
     }
 
@@ -292,7 +288,7 @@
 
     .section h3{
       font-family:'Cinzel',serif;
-      font-size:2.1rem;
+      font-size:2.05rem;
       text-transform:uppercase;
       letter-spacing:.08em;
       margin-bottom:14px;
@@ -306,7 +302,7 @@
 
     .card-grid{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(2,1fr);
       gap:14px;
       margin-top:18px;
     }
@@ -319,9 +315,9 @@
     }
 
     .card h4{
+      margin-bottom:8px;
       color:#fff;
       font-size:1rem;
-      margin-bottom:8px;
       text-transform:uppercase;
       letter-spacing:.08em;
     }
@@ -336,8 +332,8 @@
     .pill{
       padding:10px 12px;
       border-radius:999px;
-      background:rgba(116,200,255,.1);
       border:1px solid rgba(116,200,255,.16);
+      background:rgba(116,200,255,.1);
       color:#eaf7ff;
       font-size:.9rem;
     }
@@ -367,13 +363,11 @@
     }
 
     .cta.primary{
-      background:linear-gradient(180deg, var(--como), var(--como-deep));
+      background:linear-gradient(180deg, var(--como), var(--como2));
       border-color:rgba(116,200,255,.2);
     }
 
-    .cta:hover{
-      transform:translateY(-2px);
-    }
+    .cta:hover{transform:translateY(-2px)}
 
     .quote{
       margin-top:18px;
@@ -384,23 +378,77 @@
       color:#f6ead1;
     }
 
+    .projects{
+      display:grid;
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .project{
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .project-top{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:flex-start;
+      margin-bottom:8px;
+    }
+
+    .tag{
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(116,200,255,.12);
+      border:1px solid rgba(116,200,255,.18);
+      color:#dff3ff;
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      white-space:nowrap;
+    }
+
+    .timeline{
+      display:grid;
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .step{
+      display:grid;
+      grid-template-columns:120px 1fr;
+      gap:14px;
+      padding:16px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    .step:first-child{border-top:none;padding-top:0}
+    .step .year{
+      color:var(--arg);
+      font-weight:800;
+      letter-spacing:.08em;
+    }
+
     @media (max-width: 920px){
       .hero{grid-template-columns:1fr}
-      .content{min-height: 560px}
       .nav{grid-template-columns:repeat(2,1fr)}
       .metrics{grid-template-columns:1fr}
-      header{flex-direction:column; align-items:flex-start}
-      .flag{margin-left:0}
+      .card-grid{grid-template-columns:1fr}
+      .step{grid-template-columns:1fr}
+      header{flex-direction:column;align-items:flex-start}
     }
 
     @media (max-width: 640px){
       .container{width:min(100% - 20px, 1180px)}
-      .left, .right, .section{padding:18px}
-      .headline h2{font-size:2.3rem}
+      .left,.right,.section{padding:18px}
+      .headline h2{font-size:2.35rem}
       .section h3{font-size:1.7rem}
-      .card-grid{grid-template-columns:1fr}
+      .content{min-height:760px}
       .nav{grid-template-columns:1fr}
-      .content{min-height: 680px}
+      .project-top{flex-direction:column}
     }
   </style>
 </head>
@@ -426,15 +474,15 @@
           <div class="headline">
             <h2>Analizo el juego con criterio <span class="accent">táctico</span> y mentalidad <span class="accent">data-driven</span>.</h2>
             <p>
-              Soy data analyst enfocado en fútbol: traduzco partidos, rendimiento y scouting en insights claros.
-              También trabajo con código para automatizar procesos, construir dashboards y resolver problemas reales de análisis deportivo.
+              Soy data analyst enfocado en fútbol. Transformo partidos, scouting y rendimiento en insights claros, visuales prolijos y decisiones útiles.
+              También trabajo con código para automatizar procesos, limpiar datos y construir entregables sólidos.
             </p>
           </div>
 
           <div class="metrics">
             <div class="metric">
               <strong>+KPIs</strong>
-              <span>Métricas de rendimiento, posesión, presión, progresión y scouting.</span>
+              <span>Métricas de rendimiento, presión, progresión y modelos de scouting.</span>
             </div>
             <div class="metric">
               <strong>Python</strong>
@@ -442,71 +490,76 @@
             </div>
             <div class="metric">
               <strong>Fútbol</strong>
-              <span>Lectura táctica con sensibilidad argentina y estética europea.</span>
+              <span>Lectura táctica con identidad argentina y estética europea.</span>
             </div>
           </div>
         </div>
 
         <nav class="nav">
-          <button class="active" onclick="showSection('home', event)">Inicio</button>
-          <button onclick="showSection('scouting', event)">Scouting</button>
-          <button onclick="showSection('data', event)">Data</button>
-          <button onclick="showSection('contact', event)">Contacto</button>
+          <button class="active" onclick="showSection('inicio', event)">Inicio</button>
+          <button onclick="showSection('proyectos', event)">Proyectos</button>
+          <button onclick="showSection('skills', event)">Skills</button>
+          <button onclick="showSection('contacto', event)">Contacto</button>
         </nav>
       </div>
 
       <div class="panel right">
         <div class="content">
-          <article id="home" class="section active">
+          <article id="inicio" class="section active">
             <h3>Perfil</h3>
             <p>
-              Busco aportar valor a clubes, agencias o proyectos deportivos con análisis confiable, comunicación visual prolija y automatización donde haga falta.
-              Me interesa que el trabajo no solo se vea bien: también que explique mejor el juego.
+              Busco aportar valor a clubes, agencias o proyectos deportivos con análisis confiable, comunicación visual prolija y automatización cuando hace falta.
+              Mi objetivo es que la data explique mejor el juego.
             </p>
 
             <div class="card-grid">
               <div class="card">
                 <h4>Análisis</h4>
-                <p>Interpretación de partidos, rivales, rendimiento individual y colectivo.</p>
+                <p>Partidos, rivales, rendimiento individual y colectivo.</p>
               </div>
               <div class="card">
                 <h4>Visualización</h4>
-                <p>Dashboards limpios, storytelling visual y reportes listos para tomar decisiones.</p>
+                <p>Dashboards limpios, storytelling y reportes para decisión.</p>
               </div>
             </div>
 
-            <div class="quote">
-              “Elegante no es frágil: elegante es preciso.”
+            <div class="quote">“Elegante no es frágil: elegante es preciso.”</div>
+          </article>
+
+          <article id="proyectos" class="section">
+            <h3>Proyectos</h3>
+            <p>Acá podés mostrar tus trabajos más fuertes. Te dejo una estructura lista para presentar valor real.</p>
+
+            <div class="projects">
+              <div class="project">
+                <div class="project-top">
+                  <h4 style="color:#fff;text-transform:uppercase;letter-spacing:.08em;">Scouting Model</h4>
+                  <span class="tag">Similarity</span>
+                </div>
+                <p>Modelo para comparar perfiles de jugadores según rol, métricas y contexto táctico.</p>
+              </div>
+
+              <div class="project">
+                <div class="project-top">
+                  <h4 style="color:#fff;text-transform:uppercase;letter-spacing:.08em;">Match Analysis</h4>
+                  <span class="tag">Tactical</span>
+                </div>
+                <p>Informe visual de partido con puntos de presión, progresión, ocupación espacial y conclusiones.</p>
+              </div>
+
+              <div class="project">
+                <div class="project-top">
+                  <h4 style="color:#fff;text-transform:uppercase;letter-spacing:.08em;">Automation Pipeline</h4>
+                  <span class="tag">Workflow</span>
+                </div>
+                <p>Flujo automatizado para limpieza, actualización y exportación de datos en menos tiempo.</p>
+              </div>
             </div>
           </article>
 
-          <article id="scouting" class="section">
-            <h3>Scouting</h3>
-            <p>
-              Desarrollo modelos de similitud, perfiles de jugador y detección de talento para encontrar encaje táctico más allá de los números obvios.
-            </p>
-
-            <div class="stack-list">
-              <span class="pill">Similarity models</span>
-              <span class="pill">Player profiling</span>
-              <span class="pill">Event data</span>
-              <span class="pill">Video + data</span>
-              <span class="pill">Role fit</span>
-            </div>
-
-            <div class="card" style="margin-top:16px;">
-              <h4>Enfoque</h4>
-              <p>
-                Priorizo contexto, rol, liga y función dentro del sistema. Un buen scouting no solo encuentra talento: encuentra contexto útil.
-              </p>
-            </div>
-          </article>
-
-          <article id="data" class="section">
-            <h3>Tech Stack</h3>
-            <p>
-              Trabajo con herramientas para analizar, automatizar y presentar mejor la información. Me gusta mantener un flujo simple, reproducible y visualmente limpio.
-            </p>
+          <article id="skills" class="section">
+            <h3>Skills</h3>
+            <p>Herramientas que uso para analizar, automatizar y entregar mejor.</p>
 
             <div class="card-grid">
               <div class="card">
@@ -515,15 +568,15 @@
               </div>
               <div class="card">
                 <h4>Workflow</h4>
-                <p>Git, automatización, notebooks, limpieza de datos y reporting.</p>
+                <p>Git, notebooks, automatización, limpieza de datos, reporting.</p>
               </div>
               <div class="card">
                 <h4>Football Tools</h4>
-                <p>StatsBomb, video analysis, métricas de eventos y visualización táctica.</p>
+                <p>StatsBomb, video analysis, eventos, dashboards y táctico.</p>
               </div>
               <div class="card">
                 <h4>Delivery</h4>
-                <p>Informes claros, dashboards, PDFs y piezas listas para stakeholders.</p>
+                <p>Informes claros, presentaciones y piezas listas para compartir.</p>
               </div>
             </div>
 
@@ -537,7 +590,7 @@
             </div>
           </article>
 
-          <article id="contact" class="section">
+          <article id="contacto" class="section">
             <h3>Contacto</h3>
             <p>
               Si querés ver mi trabajo, hablar de scouting, dashboards o colaboraciones, podés escribirme o revisar mis proyectos.
@@ -548,8 +601,21 @@
               <a class="cta" href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
 
-            <div class="quote">
-              Disponible para proyectos de fútbol, data y producto analítico.
+            <div class="quote">Disponible para proyectos de fútbol, data y producto analítico.</div>
+
+            <div class="timeline">
+              <div class="step">
+                <div class="year">2026</div>
+                <div>
+                  <p>Portfolio en evolución con foco en fútbol, análisis visual y narrativa profesional.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="year">NOW</div>
+                <div>
+                  <p>Construyendo una identidad propia: fina, clara, argentina y orientada a resultados.</p>
+                </div>
+              </div>
             </div>
           </article>
         </div>
