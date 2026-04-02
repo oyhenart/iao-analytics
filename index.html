@@ -9,7 +9,7 @@
 
 <style>
 
-/* ================= BASE ================= */
+/* ===== BASE ===== */
 :root{
   --bg:#050505;
   --panel:rgba(255,255,255,0.05);
@@ -19,22 +19,23 @@
   --gold:#d4af37;
 }
 
+*{box-sizing:border-box;margin:0;padding:0}
+
 body{
-  margin:0;
   font-family:'Inter',sans-serif;
   background: radial-gradient(circle at top, rgba(212,175,55,0.08), transparent 20%), #050505;
   color:var(--text);
 }
 
-/* ================= CONTAINER ================= */
+/* ===== CONTAINER ===== */
 .container{
-  width: min(1200px, 90%);
+  width:min(1100px, 92%);
   margin:auto;
 }
 
-/* ================= HERO ================= */
+/* ===== HERO ===== */
 .hero{
-  height:100vh;
+  min-height:100vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -42,33 +43,33 @@ body{
 
 .hero h1{
   font-family:'Cormorant Garamond',serif;
-  font-size: clamp(3rem,6vw,5rem);
-  line-height:1;
+  font-size:clamp(2.5rem,6vw,4.5rem);
+  line-height:1.1;
 }
 
-.hero span{
-  color:var(--gold);
-}
+.hero span{color:var(--gold)}
 
 .hero p{
   margin-top:20px;
   color:var(--muted);
-  max-width:600px;
+  max-width:500px;
 }
 
 .cta{
-  margin-top:30px;
+  margin-top:25px;
   display:flex;
-  gap:15px;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
 .btn{
-  padding:12px 18px;
+  padding:12px 16px;
   border:1px solid var(--stroke);
   background:var(--panel);
   color:white;
   text-decoration:none;
-  transition:0.3s;
+  transition:.3s;
+  border-radius:10px;
 }
 
 .btn:hover{
@@ -76,89 +77,81 @@ body{
   color:black;
 }
 
-/* ================= PROJECTS ================= */
+/* ===== SECTIONS ===== */
 .section{
-  margin:100px 0;
+  margin:80px 0;
 }
 
+.section h2{
+  margin-bottom:20px;
+}
+
+/* ===== GRID ===== */
 .grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
 }
 
+/* ===== CARD ===== */
 .card{
-  position:relative;
+  display:block;
+  border-radius:16px;
   overflow:hidden;
-  border-radius:20px;
   background:var(--panel);
   border:1px solid var(--stroke);
-  transition:0.4s;
+  transition:.3s;
 }
 
 .card img{
   width:100%;
-  height:200px;
+  height:180px;
   object-fit:cover;
 }
 
 .card-content{
-  padding:20px;
+  padding:16px;
 }
 
-.card h3{
-  margin:0;
-}
-
-.card p{
-  color:var(--muted);
-  font-size:0.9rem;
-}
-
-/* HOVER PRO */
-.card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.8));
-  opacity:0;
-  transition:0.4s;
-}
+.card h3{font-size:1rem}
+.card p{font-size:.85rem;color:var(--muted)}
 
 .card:hover{
-  transform:translateY(-6px) scale(1.02);
-  box-shadow:0 20px 60px rgba(0,0,0,0.8);
+  transform:translateY(-4px);
+  box-shadow:0 10px 40px rgba(0,0,0,.6);
 }
 
-.card:hover::after{
-  opacity:1;
-}
-
-/* ================= CAPABILITIES ================= */
+/* ===== CAPABILITIES ===== */
 .cap{
-  padding:25px;
-  border-radius:20px;
+  padding:20px;
+  border-radius:16px;
   border:1px solid var(--stroke);
-  transition:0.3s;
+  transition:.3s;
 }
 
 .cap:hover{
   background:rgba(212,175,55,0.08);
-  transform:translateY(-5px);
 }
 
-/* ================= EMBED ================= */
+/* ===== EMBED ===== */
 .embed{
-  border-radius:20px;
+  border-radius:16px;
   overflow:hidden;
   border:1px solid var(--stroke);
 }
 
-/* ================= FOOTER ================= */
+.embed iframe{
+  width:100%;
+  height:350px;
+  border:none;
+}
+
+/* ===== FOOTER ===== */
 footer{
-  margin:80px 0;
+  margin:60px 0;
   text-align:center;
   color:var(--muted);
+  font-size:.85rem;
 }
 
 </style>
@@ -170,7 +163,8 @@ footer{
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Football <span>Data Science</span><br> & Tactical Intelligence</h1>
+  <h1>Football <span>Data Science</span><br>Tactical Intelligence</h1>
+
   <p>
     Argentinian perspective. European ambition.  
     Data pipelines, match analysis and football insights.
@@ -189,26 +183,26 @@ footer{
   <div class="grid">
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/Mapa_de_calor.ipynb" target="_blank">
-      <img src="heatmap.jpg">
+      <img src="https://via.placeholder.com/400x200">
       <div class="card-content">
         <h3>World Cup Final Heatmap</h3>
-        <p>Spatial analysis of Argentina's performance in the 2022 final.</p>
+        <p>Spatial analysis of Argentina 2022 final.</p>
       </div>
     </a>
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/mundial_2022_statsbomb.ipynb" target="_blank">
-      <img src="mundial.jpg">
+      <img src="https://via.placeholder.com/400x200">
       <div class="card-content">
         <h3>World Cup Analysis</h3>
-        <p>Global tournament insights using StatsBomb data.</p>
+        <p>StatsBomb tournament insights.</p>
       </div>
     </a>
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/plantilla_understat_pro.ipynb" target="_blank">
-      <img src="xg.jpg">
+      <img src="https://via.placeholder.com/400x200">
       <div class="card-content">
         <h3>xG Model</h3>
-        <p>Expected goals modeling from WhoScored/Understat data.</p>
+        <p>Expected goals modeling.</p>
       </div>
     </a>
 
@@ -220,26 +214,25 @@ footer{
   <h2>Capabilities</h2>
 
   <div class="grid">
-    <div class="cap"><h3>Tactical Analysis</h3><p>Match reading, phases and structures.</p></div>
-    <div class="cap"><h3>Data Engineering</h3><p>Scraping, pipelines and automation.</p></div>
-    <div class="cap"><h3>Scouting Models</h3><p>Player profiling and similarity.</p></div>
-    <div class="cap"><h3>Visualization</h3><p>Clear and elegant football insights.</p></div>
+    <div class="cap">Tactical Analysis</div>
+    <div class="cap">Data Engineering</div>
+    <div class="cap">Scouting Models</div>
+    <div class="cap">Visualization</div>
   </div>
 </section>
 
-<!-- EMBEDS -->
+<!-- EMBED -->
 <section class="section">
   <h2>Live Work</h2>
 
   <div class="embed">
-    <iframe src="TU_DASHBOARD_AQUI" width="100%" height="400"></iframe>
+    <iframe src="https://example.com"></iframe>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="section">
   <h2>Contact</h2>
-  <p>Available for football data projects, analysis and collaborations.</p>
 
   <div class="cta">
     <a href="https://www.linkedin.com/in/israel-oyhenart" class="btn">LinkedIn</a>
