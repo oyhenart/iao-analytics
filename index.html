@@ -1,206 +1,570 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Israel Analytics | Portfolio Responsive</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700&family=Permanent+Marker&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Israel Analytics | Football Data Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #07111f;
+      --bg-2: #0b1729;
+      --surface: rgba(255,255,255,.06);
+      --surface-2: rgba(255,255,255,.09);
+      --stroke: rgba(255,255,255,.12);
+      --text: #f4f7fb;
+      --muted: rgba(244,247,251,.72);
+      --como: #0b4aa2;
+      --como-deep: #05284f;
+      --arg: #74c8ff;
+      --arg-soft: rgba(116,200,255,.16);
+      --gold: #d8b26b;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 24px;
+    }
 
-        :root {
-            --p5-red: #D32F2F;
-            --p5-black: #000000;
-            --como-blue: #003D71;
-            --white: #FFFFFF;
-        }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      font-family:'Inter',sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(11,74,162,.28), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(116,200,255,.12), transparent 28%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      overflow-x:hidden;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.15));
+      opacity:.35;
+    }
 
-        body {
-            background-color: var(--p5-black);
-            color: var(--white);
-            font-family: 'Montserrat', sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            background-image: radial-gradient(var(--como-blue) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
+    .container{
+      width:min(1180px, calc(100% - 32px));
+      margin:0 auto;
+      padding:24px 0 40px;
+      position:relative;
+      z-index:1;
+    }
 
-        /* Contenedor Adaptable */
-        .main-container {
-            display: grid;
-            grid-template-columns: 300px 1fr; /* PC */
-            height: 100vh;
-            padding: 15px;
-            gap: 15px;
-        }
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      padding:10px 0 24px;
+    }
 
-        /* Menú Lateral / Superior */
-        nav {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            z-index: 10;
-        }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
 
-        .menu-item {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.2rem;
-            color: var(--white);
-            text-decoration: none;
-            margin: 5px 0;
-            padding: 10px 20px;
-            background: var(--p5-black);
-            clip-path: polygon(0 0, 100% 10%, 90% 100%, 0 90%);
-            transition: 0.3s;
-            text-align: center;
-        }
+    .badge{
+      width:54px;
+      height:54px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 30% 30%, #ffffff, #d9e7ff 22%, var(--como) 23%, var(--como-deep) 100%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.16), inset 0 0 0 2px rgba(255,255,255,.08);
+      position:relative;
+      flex:0 0 auto;
+    }
 
-        .menu-item.active {
-            background: var(--p5-red);
-            transform: scale(1.05) rotate(-2deg);
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
+    .badge::after{
+      content:"IA";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-family:'Cinzel',serif;
+      font-weight:700;
+      font-size:1rem;
+      letter-spacing:.12em;
+      color:#fff;
+    }
 
-        /* Área de Contenido */
-        .content-area {
-            position: relative;
-            background: rgba(255, 255, 255, 0.03);
-            border: 3px solid var(--p5-red);
-            clip-path: polygon(1% 0, 100% 2%, 99% 100%, 0 98%);
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
+    .brand h1{
+      font-family:'Cinzel',serif;
+      font-size:1.15rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      line-height:1.1;
+    }
 
-        .section-content {
-            position: absolute;
-            width: 90%;
-            left: 5%;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: 0.4s ease-out;
-            pointer-events: none;
-        }
+    .brand p{
+      color:var(--muted);
+      font-size:.92rem;
+      margin-top:4px;
+    }
 
-        .section-content.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
+    .flag{
+      display:flex;
+      gap:6px;
+      align-items:center;
+      padding:10px 14px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.05);
+      border-radius:999px;
+      backdrop-filter:blur(14px);
+    }
 
-        .section-content h2 {
-            font-size: 3.5rem;
-            color: var(--p5-red);
-            text-shadow: 3px 3px 0 var(--white);
-            margin-bottom: 10px;
-        }
+    .flag span{
+      width:10px;height:10px;border-radius:50%;
+      background:var(--arg);
+      box-shadow:0 0 0 3px rgba(116,200,255,.12);
+    }
 
-        .section-content p {
-            font-size: 1rem;
-            background: var(--white);
-            color: var(--p5-black);
-            padding: 25px;
-            clip-path: polygon(4% 0%, 100% 0%, 96% 100%, 0% 100%);
-            font-weight: 700;
-        }
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:20px;
+      min-height: calc(100vh - 112px);
+    }
 
-        .contact-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .contact-btn {
-            background: var(--p5-black);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-family: 'Bebas Neue';
-            font-size: 1.5rem;
-            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
-            width: fit-content;
-        }
+    .panel{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      backdrop-filter: blur(18px);
+      overflow:hidden;
+    }
 
-        /* --- MEDIA QUERIES (MAGIA RESPONSIVE) --- */
-        @media (max-width: 850px) {
-            body { overflow-y: auto; height: auto; }
-            
-            .main-container {
-                grid-template-columns: 1fr; /* Una sola columna */
-                height: auto;
-                padding-bottom: 50px;
-            }
+    .left{
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+    }
 
-            nav {
-                flex-direction: row; /* Menú horizontal */
-                flex-wrap: wrap;
-                margin-bottom: 20px;
-            }
+    .eyebrow{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid rgba(116,200,255,.25);
+      background:rgba(116,200,255,.08);
+      border-radius:999px;
+      color:#dff3ff;
+      font-size:.82rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      width:fit-content;
+    }
 
-            .menu-item {
-                font-size: 1.2rem;
-                padding: 8px 15px;
-                margin: 4px;
-            }
+    .eyebrow::before{
+      content:"";
+      width:8px;height:8px;border-radius:50%;
+      background:var(--arg);
+      box-shadow:0 0 0 6px rgba(116,200,255,.12);
+    }
 
-            .content-area {
-                height: 500px; /* Altura fija en móvil para el visor */
-                clip-path: none;
-                border: 2px solid var(--p5-red);
-            }
+    .headline{
+      margin-top:22px;
+      max-width:780px;
+    }
 
-            .section-content h2 { font-size: 2.2rem; }
-            .section-content p { padding: 15px; font-size: 0.9rem; clip-path: none; }
-        }
-    </style>
+    .headline h2{
+      font-family:'Cinzel',serif;
+      font-size:clamp(2.6rem, 5vw, 5.6rem);
+      line-height:.95;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+
+    .headline .accent{
+      color:var(--arg);
+      text-shadow:0 0 24px rgba(116,200,255,.18);
+    }
+
+    .headline p{
+      margin-top:18px;
+      max-width:620px;
+      color:var(--muted);
+      font-size:1.05rem;
+      line-height:1.7;
+    }
+
+    .metrics{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+      margin-top:28px;
+    }
+
+    .metric{
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .metric strong{
+      display:block;
+      font-size:1.7rem;
+      color:#fff;
+      line-height:1;
+      margin-bottom:6px;
+    }
+
+    .metric span{
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .nav{
+      display:grid;
+      gap:12px;
+      margin-top:26px;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+    }
+
+    .nav button{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      padding:14px 12px;
+      border-radius:16px;
+      color:var(--text);
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      font:inherit;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      transition:.25s ease;
+    }
+
+    .nav button:hover,
+    .nav button.active{
+      transform:translateY(-2px);
+      background:linear-gradient(180deg, rgba(11,74,162,.95), rgba(5,40,79,.95));
+      border-color:rgba(116,200,255,.35);
+      box-shadow:0 14px 30px rgba(11,74,162,.18);
+    }
+
+    .right{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      padding:18px;
+    }
+
+    .content{
+      position:relative;
+      flex:1;
+      min-height: 520px;
+    }
+
+    .section{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transform:translateY(18px);
+      pointer-events:none;
+      transition:.35s ease;
+      padding:24px;
+      border-radius:22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .section.active{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+
+    .section h3{
+      font-family:'Cinzel',serif;
+      font-size:2.1rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-bottom:14px;
+    }
+
+    .section p, .section li{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1rem;
+    }
+
+    .card-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .card{
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .card h4{
+      color:#fff;
+      font-size:1rem;
+      margin-bottom:8px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .stack-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .pill{
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(116,200,255,.1);
+      border:1px solid rgba(116,200,255,.16);
+      color:#eaf7ff;
+      font-size:.9rem;
+    }
+
+    .contact{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 18px;
+      border-radius:14px;
+      text-decoration:none;
+      color:#fff;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.06);
+      transition:.25s ease;
+    }
+
+    .cta.primary{
+      background:linear-gradient(180deg, var(--como), var(--como-deep));
+      border-color:rgba(116,200,255,.2);
+    }
+
+    .cta:hover{
+      transform:translateY(-2px);
+    }
+
+    .quote{
+      margin-top:18px;
+      padding:16px 18px;
+      border-left:3px solid var(--gold);
+      background:rgba(216,178,107,.08);
+      border-radius:0 16px 16px 0;
+      color:#f6ead1;
+    }
+
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+      .content{min-height: 560px}
+      .nav{grid-template-columns:repeat(2,1fr)}
+      .metrics{grid-template-columns:1fr}
+      header{flex-direction:column; align-items:flex-start}
+      .flag{margin-left:0}
+    }
+
+    @media (max-width: 640px){
+      .container{width:min(100% - 20px, 1180px)}
+      .left, .right, .section{padding:18px}
+      .headline h2{font-size:2.3rem}
+      .section h3{font-size:1.7rem}
+      .card-grid{grid-template-columns:1fr}
+      .nav{grid-template-columns:1fr}
+      .content{min-height: 680px}
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="badge"></div>
+        <div>
+          <h1>Israel Analytics</h1>
+          <p>Football Data Scientist · Argentina</p>
+        </div>
+      </div>
+      <div class="flag" aria-label="Argentina inspired accent">
+        <span></span><span></span><span></span>
+      </div>
+    </header>
 
-    <div class="main-container">
-        <nav>
-            <a href="#" class="menu-item active" onclick="showSection('home', event)">INICIO</a>
-            <a href="#" class="menu-item" onclick="showSection('scout', event)">SCOUTING</a>
-            <a href="#" class="menu-item" onclick="showSection('data', event)">DATA</a>
-            <a href="#" class="menu-item" onclick="showSection('contact', event)">CONTACTO</a>
+    <section class="hero">
+      <div class="panel left">
+        <div>
+          <div class="eyebrow">Como-inspired elegance · football-first</div>
+          <div class="headline">
+            <h2>Analizo el juego con criterio <span class="accent">táctico</span> y mentalidad <span class="accent">data-driven</span>.</h2>
+            <p>
+              Soy data analyst enfocado en fútbol: traduzco partidos, rendimiento y scouting en insights claros.
+              También trabajo con código para automatizar procesos, construir dashboards y resolver problemas reales de análisis deportivo.
+            </p>
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <strong>+KPIs</strong>
+              <span>Métricas de rendimiento, posesión, presión, progresión y scouting.</span>
+            </div>
+            <div class="metric">
+              <strong>Python</strong>
+              <span>Pandas, visualización, scraping, automatización y análisis exploratorio.</span>
+            </div>
+            <div class="metric">
+              <strong>Fútbol</strong>
+              <span>Lectura táctica con sensibilidad argentina y estética europea.</span>
+            </div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="active" onclick="showSection('home', event)">Inicio</button>
+          <button onclick="showSection('scouting', event)">Scouting</button>
+          <button onclick="showSection('data', event)">Data</button>
+          <button onclick="showSection('contact', event)">Contacto</button>
         </nav>
+      </div>
 
-        <main class="content-area">
-            <div id="home" class="section-content active">
-                <h2>ISRAEL <span style="font-family:'Permanent Marker'; color:var(--p5-red)">IAO</span></h2>
-                <p>DATA SCIENTIST EN FÚTBOL. <br> Analizando el juego, un bit a la vez.</p>
+      <div class="panel right">
+        <div class="content">
+          <article id="home" class="section active">
+            <h3>Perfil</h3>
+            <p>
+              Busco aportar valor a clubes, agencias o proyectos deportivos con análisis confiable, comunicación visual prolija y automatización donde haga falta.
+              Me interesa que el trabajo no solo se vea bien: también que explique mejor el juego.
+            </p>
+
+            <div class="card-grid">
+              <div class="card">
+                <h4>Análisis</h4>
+                <p>Interpretación de partidos, rivales, rendimiento individual y colectivo.</p>
+              </div>
+              <div class="card">
+                <h4>Visualización</h4>
+                <p>Dashboards limpios, storytelling visual y reportes listos para tomar decisiones.</p>
+              </div>
             </div>
 
-            <div id="scout" class="section-content">
-                <h2>SCOUTING</h2>
-                <p>Modelos de similitud y detección de talento con Python.</p>
+            <div class="quote">
+              “Elegante no es frágil: elegante es preciso.”
+            </div>
+          </article>
+
+          <article id="scouting" class="section">
+            <h3>Scouting</h3>
+            <p>
+              Desarrollo modelos de similitud, perfiles de jugador y detección de talento para encontrar encaje táctico más allá de los números obvios.
+            </p>
+
+            <div class="stack-list">
+              <span class="pill">Similarity models</span>
+              <span class="pill">Player profiling</span>
+              <span class="pill">Event data</span>
+              <span class="pill">Video + data</span>
+              <span class="pill">Role fit</span>
             </div>
 
-            <div id="data" class="section-content">
-                <h2>TECH STACK</h2>
-                <p><div id="data" class="section-content">
-    <h2>TECH <span class="marker">STACK</span></h2>
-    <p>
-        <strong>ANALYSIS:</strong> Python (Pandas, mplsoccer, Seaborn, Scikit-learn). <br><br>
-        <strong>WORKFLOW:</strong> Automatización con n8n y control de versiones en Git. <br><br>
-        <strong>VIDEO:</strong> Análisis táctico con LongoMatch y manejo de datos StatsBomb.
-    </p>
-</div></p>
+            <div class="card" style="margin-top:16px;">
+              <h4>Enfoque</h4>
+              <p>
+                Priorizo contexto, rol, liga y función dentro del sistema. Un buen scouting no solo encuentra talento: encuentra contexto útil.
+              </p>
+            </div>
+          </article>
+
+          <article id="data" class="section">
+            <h3>Tech Stack</h3>
+            <p>
+              Trabajo con herramientas para analizar, automatizar y presentar mejor la información. Me gusta mantener un flujo simple, reproducible y visualmente limpio.
+            </p>
+
+            <div class="card-grid">
+              <div class="card">
+                <h4>Analysis</h4>
+                <p>Python, Pandas, NumPy, Scikit-learn, Seaborn, Plotly.</p>
+              </div>
+              <div class="card">
+                <h4>Workflow</h4>
+                <p>Git, automatización, notebooks, limpieza de datos y reporting.</p>
+              </div>
+              <div class="card">
+                <h4>Football Tools</h4>
+                <p>StatsBomb, video analysis, métricas de eventos y visualización táctica.</p>
+              </div>
+              <div class="card">
+                <h4>Delivery</h4>
+                <p>Informes claros, dashboards, PDFs y piezas listas para stakeholders.</p>
+              </div>
             </div>
 
-            <div id="contact" class="section-content">
-                <h2>CONTACTO</h2>
-                <div class="contact-grid">
-                    <a href="https://www.linkedin.com/in/israel-oyhenart" target="_blank" class="contact-btn">LINKEDIN</a>
-                    <a href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" class="contact-btn">GITHUB</a>
-                </div>
+            <div class="stack-list">
+              <span class="pill">Python</span>
+              <span class="pill">Pandas</span>
+              <span class="pill">Plotly</span>
+              <span class="pill">Scikit-learn</span>
+              <span class="pill">Git</span>
+              <span class="pill">n8n</span>
             </div>
-        </main>
-    </div>
+          </article>
 
-    <script>
-        function showSection(id, e) {
-            e.preventDefault();
-            document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            e.target.classList.add('active');
-        }
-    </script>
+          <article id="contact" class="section">
+            <h3>Contacto</h3>
+            <p>
+              Si querés ver mi trabajo, hablar de scouting, dashboards o colaboraciones, podés escribirme o revisar mis proyectos.
+            </p>
+
+            <div class="contact">
+              <a class="cta primary" href="https://www.linkedin.com/in/israel-oyhenart" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a class="cta" href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+
+            <div class="quote">
+              Disponible para proyectos de fútbol, data y producto analítico.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function showSection(id, e) {
+      e.preventDefault();
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      e.target.classList.add('active');
+    }
+  </script>
 </body>
 </html>
