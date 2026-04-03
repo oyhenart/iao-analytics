@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +21,6 @@
 
 *{box-sizing:border-box;margin:0;padding:0;}
 
-/* Reseteo vital para que los links no se pongan azules */
 a {
   text-decoration: none;
   color: inherit;
@@ -32,12 +31,42 @@ body{
   background: radial-gradient(circle at top, rgba(212,175,55,0.08), transparent 20%), #050505;
   color:var(--text);
   line-height: 1.5;
+  position: relative;
+}
+
+/* ===== IDIOMAS (MAGIA BILINGÜE) ===== */
+.en { display: none !important; }
+body.en-mode .en { display: block !important; }
+body.en-mode span.en { display: inline !important; }
+body.en-mode .es { display: none !important; }
+
+.lang-toggle {
+  position: absolute;
+  top: 20px;
+  right: 5%;
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  color: var(--gold);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  transition: 0.3s ease;
+  z-index: 100;
+}
+
+.lang-toggle:hover {
+  background: rgba(212,175,55,0.1);
+  border-color: var(--gold);
 }
 
 /* ===== CONTAINER ===== */
 .container{
   width:min(1100px, 92%);
   margin:auto;
+  position: relative;
 }
 
 /* ===== HERO ===== */
@@ -54,12 +83,12 @@ body{
   line-height:1.1;
 }
 
-.hero span{color:var(--gold)}
+.hero span.highlight {color:var(--gold)}
 
 .hero p{
   margin-top:20px;
   color:var(--muted);
-  max-width:500px;
+  max-width:550px;
   font-size: 1.1rem;
 }
 
@@ -118,20 +147,12 @@ body{
   transition:.4s ease;
 }
 
-/* Reemplazo elegante para las imágenes rotas */
-.card-visual {
-  height: 180px;
-  background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(0,0,0,0.8)),
-              repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px);
+/* Fix para que las imágenes reales se vean perfectas */
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
   border-bottom: 1px solid var(--stroke);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(212,175,55,0.5);
-  font-family: 'Inter', monospace;
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
 }
 
 .card-content{
@@ -156,12 +177,6 @@ body{
   box-shadow:0 15px 30px rgba(0,0,0,.8);
 }
 
-.card:hover .card-visual {
-  color: var(--gold);
-  background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(0,0,0,0.9)),
-              repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px);
-}
-
 /* ===== CAPABILITIES & STACK ===== */
 .cap{
   padding:20px;
@@ -176,7 +191,7 @@ body{
   gap: 5px;
 }
 
-.cap span {
+.cap span.subtext {
   font-size: 0.8rem;
   font-weight: 400;
   color: var(--muted);
@@ -203,48 +218,66 @@ footer{
 
 <body>
 
+<button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">ES / EN</button>
+
 <div class="container">
 
 <section class="hero">
-  <h1>Football <span>Data Science</span><br>& Tactical Intelligence</h1>
+  <h1>
+    <span class="es">Data Science en Fútbol<br>& <span class="highlight">Inteligencia Táctica</span></span>
+    <span class="en">Football Data Science<br>& <span class="highlight">Tactical Intelligence</span></span>
+  </h1>
 
-  <p>
-    Argentinian perspective. European ambition.  
+  <p class="es">
+    Perspectiva argentina. Ambición europea. <br>
+    Especializado en pipelines de datos, análisis de partidos y traducción de métricas complejas en insights listos para la cancha.
+  </p>
+  <p class="en">
+    Argentinian perspective. European ambition. <br>
     Specialized in data pipelines, match analysis, and translating complex football metrics into pitch-ready insights.
   </p>
 
   <div class="cta">
-    <a href="#projects" class="btn">View Projects</a>
-    <a href="#contact" class="btn">Contact Me</a>
+    <a href="#projects" class="btn es">Ver Proyectos</a>
+    <a href="#projects" class="btn en">View Projects</a>
+    <a href="#contact" class="btn es">Contactame</a>
+    <a href="#contact" class="btn en">Contact Me</a>
   </div>
 </section>
 
 <section id="projects" class="section">
-  <h2>Featured Projects</h2>
+  <h2 class="es">Proyectos Destacados</h2>
+  <h2 class="en">Featured Projects</h2>
 
   <div class="grid">
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/Mapa_de_calor.ipynb" target="_blank">
-      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/heatmap_rodrigo_de_paul.png?raw=true">
+      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/heatmap_rodrigo_de_paul.png?raw=true" alt="Heatmap">
       <div class="card-content">
-        <h3>World Cup Final Heatmap</h3>
-        <p>Spatial analysis and pass networking of the Argentina 2022 final.</p>
+        <h3 class="es">Mapa de Calor: Final del Mundo</h3>
+        <h3 class="en">World Cup Final Heatmap</h3>
+        <p class="es">Análisis espacial y redes de pases de la final de Argentina 2022.</p>
+        <p class="en">Spatial analysis and pass networking of the Argentina 2022 final.</p>
       </div>
     </a>
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/mundial_2022_statsbomb.ipynb" target="_blank">
-      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/scatter_flechas_pases.png?raw=true">
+      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/scatter_flechas_pases.png?raw=true" alt="Tournament Analytics">
       <div class="card-content">
-        <h3>Tournament Analytics</h3>
-        <p>Deep dive into StatsBomb open data for tournament-wide performance insights.</p>
+        <h3 class="es">Analítica de Torneos</h3>
+        <h3 class="en">Tournament Analytics</h3>
+        <p class="es">Análisis profundo de datos abiertos de StatsBomb para insights de rendimiento general.</p>
+        <p class="en">Deep dive into StatsBomb open data for tournament-wide performance insights.</p>
       </div>
     </a>
 
     <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/plantilla_understat_pro.ipynb" target="_blank">
-      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/xG-Como-1907.png?raw=true">
+      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/xG-Como-1907.png?raw=true" alt="xG Modeling">
       <div class="card-content">
-        <h3>xG Modeling</h3>
-        <p>Expected goals (xG) analysis and finishing variance modeling.</p>
+        <h3 class="es">Modelado de xG</h3>
+        <h3 class="en">xG Modeling</h3>
+        <p class="es">Análisis de goles esperados (xG) y modelado de varianza en la definición.</p>
+        <p class="en">Expected goals (xG) analysis and finishing variance modeling.</p>
       </div>
     </a>
 
@@ -252,33 +285,57 @@ footer{
 </section>
 
 <section class="section">
-  <h2>Core Capabilities</h2>
+  <h2 class="es">Capacidades Principales</h2>
+  <h2 class="en">Core Capabilities</h2>
 
   <div class="grid">
-    <div class="cap">Tactical Analysis <span>Pattern recognition</span></div>
-    <div class="cap">Data Engineering <span>ETL & Pipelines</span></div>
-    <div class="cap">Scouting Models <span>Similarity & Clustering</span></div>
-    <div class="cap">Visualization <span>Actionable reports</span></div>
+    <div class="cap">
+      <span class="es">Análisis Táctico</span><span class="en">Tactical Analysis</span>
+      <span class="subtext es">Reconocimiento de patrones</span><span class="subtext en">Pattern recognition</span>
+    </div>
+    <div class="cap">
+      <span class="es">Ingeniería de Datos</span><span class="en">Data Engineering</span>
+      <span class="subtext es">ETL y Pipelines</span><span class="subtext en">ETL & Pipelines</span>
+    </div>
+    <div class="cap">
+      <span class="es">Modelos de Scouting</span><span class="en">Scouting Models</span>
+      <span class="subtext es">Similitud y Clustering</span><span class="subtext en">Similarity & Clustering</span>
+    </div>
+    <div class="cap">
+      <span class="es">Visualización</span><span class="en">Visualization</span>
+      <span class="subtext es">Reportes accionables</span><span class="subtext en">Actionable reports</span>
+    </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>Tech Stack & Tools</h2>
+  <h2 class="es">Stack Tecnológico y Herramientas</h2>
+  <h2 class="en">Tech Stack & Tools</h2>
 
   <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-    <div class="cap">Python <span>Pandas, NumPy, Scikit</span></div>
-    <div class="cap">mplsoccer <span>Pitch Visualization</span></div>
-    <div class="cap">n8n <span>Workflow Automation</span></div>
-    <div class="cap">SQL <span>Database Management</span></div>
+    <div class="cap">Python <span class="subtext">Pandas, NumPy, Scikit</span></div>
+    <div class="cap">mplsoccer 
+      <span class="subtext es">Visualización de Cancha</span><span class="subtext en">Pitch Visualization</span>
+    </div>
+    <div class="cap">n8n 
+      <span class="subtext es">Automatización de Flujos</span><span class="subtext en">Workflow Automation</span>
+    </div>
+    <div class="cap">SQL 
+      <span class="subtext es">Gestión de Bases de Datos</span><span class="subtext en">Database Management</span>
+    </div>
   </div>
 </section>
 
 <section id="contact" class="section">
-  <h2>Let's Connect</h2>
+  <h2 class="es">Conectemos</h2>
+  <h2 class="en">Let's Connect</h2>
 
   <div class="cta">
-    <a href="https://www.linkedin.com/in/israel-oyhenart" target="_blank" class="btn">LinkedIn Profile</a>
-    <a href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" class="btn">GitHub Repository</a>
+    <a href="https://www.linkedin.com/in/israel-oyhenart" target="_blank" class="btn es">Perfil de LinkedIn</a>
+    <a href="https://www.linkedin.com/in/israel-oyhenart" target="_blank" class="btn en">LinkedIn Profile</a>
+    
+    <a href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" class="btn es">Repositorio en GitHub</a>
+    <a href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" class="btn en">GitHub Repository</a>
   </div>
 </section>
 
@@ -287,6 +344,23 @@ footer{
 </footer>
 
 </div>
+
+<script>
+  function toggleLanguage() {
+    const body = document.body;
+    const btn = document.getElementById('langBtn');
+    
+    body.classList.toggle('en-mode');
+    
+    if (body.classList.contains('en-mode')) {
+      btn.innerText = 'EN / ES';
+      document.documentElement.lang = 'en';
+    } else {
+      btn.innerText = 'ES / EN';
+      document.documentElement.lang = 'es';
+    }
+  }
+</script>
 
 </body>
 </html>
