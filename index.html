@@ -19,9 +19,48 @@
   --accent: #1a5c38;
   --accent-light: rgba(26,92,56,0.08);
   --border: rgba(0,0,0,0.1);
+  --header-bg: rgba(247,244,239,0.92);
   --font: 'Sora', sans-serif;
   --font-serif: 'Lora', serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1117;
+    --bg2: #161b24;
+    --text: #dde3ec;
+    --text-2: #8a9bb4;
+    --text-3: #4d5f73;
+    --accent: #3aad6a;
+    --accent-light: rgba(58,173,106,0.1);
+    --border: rgba(255,255,255,0.08);
+    --header-bg: rgba(15,17,23,0.92);
+  }
+}
+
+body.dark {
+  --bg: #0f1117;
+  --bg2: #161b24;
+  --text: #dde3ec;
+  --text-2: #8a9bb4;
+  --text-3: #4d5f73;
+  --accent: #3aad6a;
+  --accent-light: rgba(58,173,106,0.1);
+  --border: rgba(255,255,255,0.08);
+  --header-bg: rgba(15,17,23,0.92);
+}
+
+body.light {
+  --bg: #f7f4ef;
+  --bg2: #edeae3;
+  --text: #1c1c1c;
+  --text-2: #555;
+  --text-3: #999;
+  --accent: #1a5c38;
+  --accent-light: rgba(26,92,56,0.08);
+  --border: rgba(0,0,0,0.1);
+  --header-bg: rgba(247,244,239,0.92);
 }
 
 html { scroll-behavior: smooth; }
@@ -40,7 +79,7 @@ header {
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background: rgba(247,244,239,0.92);
+  background: var(--header-bg);
   backdrop-filter: blur(8px);
   z-index: 100;
 }
@@ -95,6 +134,19 @@ header {
   letter-spacing: 0.05em;
 }
 .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.theme-btn {
+  font-size: 15px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  line-height: 1;
+  transition: border-color 0.2s;
+  color: var(--text-2);
+}
+.theme-btn:hover { border-color: var(--accent); }
 
 /* ─── LAYOUT ─── */
 main { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
@@ -399,6 +451,7 @@ body.en [data-lang="es"] { display: none; }
         <li><a href="#proyectos" data-lang="es">Proyectos</a><a href="#proyectos" data-lang="en">Projects</a></li>
         <li><a href="#contacto" data-lang="es">Contacto</a><a href="#contacto" data-lang="en">Contact</a></li>
       </ul>
+      <button class="theme-btn" id="theme-toggle" title="Cambiar tema">☀︎</button>
       <button class="lang-btn" id="lang-toggle">EN</button>
     </div>
   </div>
@@ -630,14 +683,51 @@ body.en [data-lang="es"] { display: none; }
 </footer>
 
 <script>
-  const btn = document.getElementById('lang-toggle');
+  // ─── LANG ───
+  const langBtn = document.getElementById('lang-toggle');
   let lang = 'es';
-  btn.addEventListener('click', () => {
+  langBtn.addEventListener('click', () => {
     lang = lang === 'es' ? 'en' : 'es';
-    document.body.className = lang === 'en' ? 'en' : '';
-    btn.textContent = lang === 'es' ? 'EN' : 'ES';
+    if (lang === 'en') {
+      document.body.classList.add('en');
+    } else {
+      document.body.classList.remove('en');
+    }
     document.documentElement.lang = lang;
+    langBtn.textContent = lang === 'es' ? 'EN' : 'ES';
   });
+
+  // ─── THEME ───
+  const themeBtn = document.getElementById('theme-toggle');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  let userTheme = localStorage.getItem('theme') || 'system';
+
+  function getEffectiveTheme() {
+    if (userTheme === 'system') return prefersDark.matches ? 'dark' : 'light';
+    return userTheme;
+  }
+
+  function updateThemeClass() {
+    const t = getEffectiveTheme();
+    document.body.classList.remove('dark', 'light');
+    document.body.classList.add(t);
+    themeBtn.textContent = t === 'dark' ? '☀︎' : '☾';
+    themeBtn.title = t === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+  }
+
+  themeBtn.addEventListener('click', () => {
+    const current = getEffectiveTheme();
+    userTheme = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', userTheme);
+    updateThemeClass();
+  });
+
+  prefersDark.addEventListener('change', () => {
+    if (userTheme === 'system') updateThemeClass();
+  });
+
+  updateThemeClass();
 </script>
 
 </body>
