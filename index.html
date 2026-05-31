@@ -3,363 +3,641 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Israel Oyhenart — Football Data Lab</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
-
+<title>Israel Oyhenart — Análisis de Fútbol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Lora:ital,wght@0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ===== BASE ===== */
-:root{
-  --bg:#050505;
-  --panel:rgba(255,255,255,0.05);
-  --stroke:rgba(255,255,255,0.08);
-  --text:#f5f5f5;
-  --muted:rgba(255,255,255,0.6);
-  --gold:#d4af37;
+:root {
+  --bg: #f7f4ef;
+  --bg2: #edeae3;
+  --text: #1c1c1c;
+  --text-2: #555;
+  --text-3: #999;
+  --accent: #1a5c38;
+  --accent-light: rgba(26,92,56,0.08);
+  --border: rgba(0,0,0,0.1);
+  --font: 'Sora', sans-serif;
+  --font-serif: 'Lora', serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;}
+html { scroll-behavior: smooth; }
 
-a {
-  text-decoration: none;
-  color: inherit;
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
 }
 
-body{
-  font-family:'Inter',sans-serif;
-  background: radial-gradient(circle at top, rgba(212,175,55,0.08), transparent 20%), #050505;
-  color:var(--text);
-  line-height: 1.5;
-  position: relative;
-}
-
-/* ===== IDIOMAS (MAGIA BILINGÜE) ===== */
-.en { display: none !important; }
-body.en-mode .en { display: block !important; }
-body.en-mode span.en { display: inline !important; }
-body.en-mode .es { display: none !important; }
-
-.lang-toggle {
-  position: absolute;
-  top: 20px;
-  right: 5%;
-  background: var(--panel);
-  border: 1px solid var(--stroke);
-  color: var(--gold);
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  font-size: 0.9rem;
-  transition: 0.3s ease;
+/* ─── HEADER ─── */
+header {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(247,244,239,0.92);
+  backdrop-filter: blur(8px);
   z-index: 100;
 }
 
-.lang-toggle:hover {
-  background: rgba(212,175,55,0.1);
-  border-color: var(--gold);
+.header-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* ===== CONTAINER ===== */
-.container{
-  width:min(1100px, 92%);
-  margin:auto;
-  position: relative;
+.logo {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.03em;
 }
 
-/* ===== HERO ===== */
-.hero{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.hero h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.5rem,6vw,4.5rem);
-  line-height:1.1;
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.75rem;
 }
 
-.hero span.highlight {color:var(--gold)}
+.nav-links a {
+  font-size: 13px;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
 
-.hero p{
-  margin-top:20px;
-  color:var(--muted);
-  max-width:550px;
-  font-size: 1.1rem;
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-2);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+}
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── LAYOUT ─── */
+main { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+
+/* ─── INTRO ─── */
+#intro { padding-top: 5.5rem; }
+
+.intro-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
 }
 
-.cta{
-  margin-top:25px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  padding:12px 24px;
-  border:1px solid var(--stroke);
-  background:var(--panel);
-  color:white;
-  transition:.3s ease;
-  border-radius:10px;
+.intro-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 44px);
   font-weight: 600;
-}
-
-.btn:hover{
-  background:linear-gradient(180deg,var(--gold),#7a5a1a);
-  border-color: var(--gold);
-  color:black;
-}
-
-/* ===== SECTIONS ===== */
-.section{
-  margin:80px 0;
-}
-
-.section h2{
-  margin-bottom:25px;
-  font-family:'Cormorant Garamond',serif;
-  font-size: 2.2rem;
-  color: var(--gold);
-  border-bottom: 1px solid var(--stroke);
-  padding-bottom: 10px;
-}
-
-/* ===== GRID ===== */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-}
-
-/* ===== CARD ===== */
-.card{
-  display:flex;
-  flex-direction: column;
-  border-radius:16px;
-  overflow:hidden;
-  background:var(--panel);
-  border:1px solid var(--stroke);
-  transition:.4s ease;
-}
-
-/* Fix para que las imágenes reales se vean perfectas */
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 1px solid var(--stroke);
-}
-
-.card-content{
-  padding:20px;
-  flex-grow: 1;
-}
-
-.card h3{
-  font-size:1.2rem; 
-  margin-bottom: 8px;
+  line-height: 1.2;
   color: var(--text);
+  margin-bottom: 1.5rem;
+  max-width: 680px;
 }
 
-.card p{
-  font-size:.9rem;
-  color:var(--muted);
+.intro-heading em {
+  font-style: italic;
+  color: var(--accent);
 }
 
-.card:hover{
-  transform:translateY(-5px);
-  border-color: rgba(212,175,55,0.4);
-  box-shadow:0 15px 30px rgba(0,0,0,.8);
+.intro-body {
+  font-size: 16px;
+  color: var(--text-2);
+  max-width: 580px;
+  line-height: 1.8;
+  margin-bottom: 2rem;
 }
 
-/* ===== CAPABILITIES & STACK ===== */
-.cap{
-  padding:20px;
-  border-radius:12px;
-  border:1px solid var(--stroke);
-  background: var(--panel);
-  transition:.3s;
-  text-align: center;
+.intro-ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-main {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.btn-main:hover { opacity: 0.85; }
+
+.btn-ghost {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-2);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── EXPERIENCIA ─── */
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+.exp-item:last-child { padding-bottom: 0; }
+
+.exp-meta {
+  padding-top: 2px;
+}
+
+.exp-club {
   font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.exp-period {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.03em;
+}
+
+.exp-badge-current {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid rgba(26,92,56,0.15);
+  border-radius: 3px;
+  padding: 2px 7px;
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+}
+
+.exp-content {}
+
+.exp-role {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.exp-desc {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.75;
+}
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 2px 8px;
+}
+
+/* ─── PROYECTOS ─── */
+.project-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 1.5rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+.project-item:last-child { padding-bottom: 0; }
+
+.project-item:hover .project-title { color: var(--accent); }
+
+.project-source {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.project-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  transition: color 0.2s;
+  line-height: 1.4;
+}
+
+.project-desc {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 580px;
+}
+
+.project-arrow {
+  font-size: 18px;
+  color: var(--text-3);
+  padding-top: 2px;
+  transition: transform 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.project-item:hover .project-arrow {
+  transform: translate(2px, -2px);
+  color: var(--accent);
+}
+
+/* ─── STACK ─── */
+.stack-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.stack-table tr {
+  border-top: 1px solid var(--border);
+}
+.stack-table td {
+  padding: 1rem 0;
+  font-size: 14px;
+  vertical-align: top;
+}
+.stack-table td:first-child {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
+  width: 140px;
+  padding-right: 1.5rem;
+  letter-spacing: 0.04em;
+  padding-top: 1.1rem;
+}
+.stack-table td:last-child {
+  color: var(--text-2);
+}
+
+/* ─── CONTACTO ─── */
+.contact-links {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0;
+}
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.2s;
+}
+.contact-link:last-child { border-bottom: 1px solid var(--border); }
+.contact-link:hover { color: var(--accent); }
+.contact-link-label { font-size: 15px; font-weight: 500; }
+.contact-link-url {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
 }
 
-.cap span.subtext {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--muted);
+/* ─── FOOTER ─── */
+footer {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
 }
 
-.cap:hover{
-  background:rgba(212,175,55,0.08);
-  border-color: rgba(212,175,55,0.3);
-  transform: translateY(-2px);
-}
+/* ─── LANGUAGE ─── */
+[data-lang="en"] { display: none; }
+body.en [data-lang="en"] { display: inherit; }
+body.en [data-lang="es"] { display: none; }
 
-/* ===== FOOTER ===== */
-footer{
-  margin:80px 0 40px;
-  text-align:center;
-  color:var(--muted);
-  font-size:.85rem;
-  border-top: 1px solid var(--stroke);
-  padding-top: 40px;
+/* ─── RESPONSIVE ─── */
+@media (max-width: 640px) {
+  main { padding: 0 1.25rem; }
+  .header-inner { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .exp-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  footer { padding: 2rem 1.25rem; flex-direction: column; gap: 0.5rem; text-align: center; }
 }
-
 </style>
 </head>
-
 <body>
 
-<button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">ES / EN</button>
-
-<div class="container">
-
-<section class="hero">
-  <h1>
-    <span class="es">Data Science en Fútbol<br>& <span class="highlight">Inteligencia Táctica</span></span>
-    <span class="en">Football Data Science<br>& <span class="highlight">Tactical Intelligence</span></span>
-  </h1>
-
-  <p class="es">
-    Perspectiva argentina. Ambición europea. <br>
-    Especializado en pipelines de datos, análisis de partidos y traducción de métricas complejas en insights listos para la cancha.
-  </p>
-  <p class="en">
-    Argentinian perspective. European ambition. <br>
-    Specialized in data pipelines, match analysis, and translating complex football metrics into pitch-ready insights.
-  </p>
-
-  <div class="cta">
-    <a href="#projects" class="btn es">Ver Proyectos</a>
-    <a href="#projects" class="btn en">View Projects</a>
-    <a href="#contact" class="btn es">Contactame</a>
-    <a href="#contact" class="btn en">Contact Me</a>
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">israel.oyhenart</a>
+    <div class="header-right">
+      <ul class="nav-links">
+        <li><a href="#experiencia" data-lang="es">Experiencia</a><a href="#experiencia" data-lang="en">Experience</a></li>
+        <li><a href="#proyectos" data-lang="es">Proyectos</a><a href="#proyectos" data-lang="en">Projects</a></li>
+        <li><a href="#contacto" data-lang="es">Contacto</a><a href="#contacto" data-lang="en">Contact</a></li>
+      </ul>
+      <button class="lang-btn" id="lang-toggle">EN</button>
+    </div>
   </div>
-</section>
+</header>
 
-<section id="projects" class="section">
-  <h2 class="es">Proyectos Destacados</h2>
-  <h2 class="en">Featured Projects</h2>
+<main>
 
-  <div class="grid">
+  <!-- INTRO -->
+  <section id="intro">
+    <div class="intro-label" data-lang="es">Buenos Aires, Argentina</div>
+    <div class="intro-label" data-lang="en">Buenos Aires, Argentina</div>
 
-    <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/Mapa_de_calor.ipynb" target="_blank">
-      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/heatmap_rodrigo_de_paul.png?raw=true" alt="Heatmap">
-      <div class="card-content">
-        <h3 class="es">Mapa de Calor: Final del Mundo</h3>
-        <h3 class="en">World Cup Final Heatmap</h3>
-        <p class="es">Análisis espacial y redes de pases de la final de Argentina 2022.</p>
-        <p class="en">Spatial analysis and pass networking of the Argentina 2022 final.</p>
+    <h1 class="intro-heading">
+      <span data-lang="es">Analizo partidos de fútbol<br>con <em>datos y código.</em></span>
+      <span data-lang="en">I analyze football matches<br>with <em>data and code.</em></span>
+    </h1>
+
+    <p class="intro-body">
+      <span data-lang="es">Trabajo como video analista y analista de datos en el Club Atlético Estrella de Berisso, donde pasé de las divisiones juveniles al primer equipo para el Torneo Promocional Amateur. Uso Python, mplsoccer y LongoMatch para construir reportes tácticos que el cuerpo técnico pueda usar de verdad.</span>
+      <span data-lang="en">I work as a video and data analyst at Club Atlético Estrella de Berisso, where I moved from the youth divisions to the first team for the Promotional Amateur Tournament. I use Python, mplsoccer and LongoMatch to build tactical reports that coaching staff can actually use.</span>
+    </p>
+
+    <div class="intro-ctas">
+      <a href="#proyectos" class="btn-main">
+        <span data-lang="es">Ver el trabajo</span>
+        <span data-lang="en">See the work</span>
+      </a>
+      <a href="#contacto" class="btn-ghost">
+        <span data-lang="es">Contacto</span>
+        <span data-lang="en">Contact</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section id="experiencia">
+    <div class="section-title" data-lang="es">Dónde trabajo</div>
+    <div class="section-title" data-lang="en">Where I work</div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-club">Estrella de Berisso</div>
+        <div class="exp-period">2024 — hoy</div>
+        <div class="exp-badge-current" data-lang="es">Activo</div>
+        <div class="exp-badge-current" data-lang="en">Active</div>
       </div>
+      <div class="exp-content">
+        <div class="exp-role">
+          <span data-lang="es">Video analista & Analista de datos</span>
+          <span data-lang="en">Video analyst & Data analyst</span>
+        </div>
+        <div class="exp-desc">
+          <span data-lang="es">Empecé en las divisiones juveniles (7ma, 8va y 9na) haciendo análisis de video con LongoMatch y visualizaciones en Python. El club quedó conforme con el trabajo y me sumaron al primer equipo para el Torneo Promocional Amateur. Ahora armo un pipeline de datos completo para cada partido: desde el video hasta el reporte HTML con clips embebidos que entrego al cuerpo técnico.</span>
+          <span data-lang="en">I started in the youth divisions (7th, 8th and 9th) doing video analysis with LongoMatch and Python visualizations. The club was happy with the work and brought me on to the first team for the Promotional Amateur Tournament. Now I build a full data pipeline for every match: from the video all the way to an HTML report with embedded clips that I hand over to the coaching staff.</span>
+        </div>
+        <div class="exp-tags">
+          <span class="tag">LongoMatch</span>
+          <span class="tag">Python</span>
+          <span class="tag">mplsoccer</span>
+          <span class="tag">FCPython</span>
+          <span class="tag">n8n</span>
+          <span class="tag">HTML reports</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-club">IAO Football Analytics</div>
+        <div class="exp-period">2023 — 2024</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">
+          <span data-lang="es">Proyectos propios con datos abiertos</span>
+          <span data-lang="en">Personal projects with open data</span>
+        </div>
+        <div class="exp-desc">
+          <span data-lang="es">Antes de trabajar en un club usé datos abiertos de StatsBomb y Understat para practicar y construir un portfolio. Analicé el Mundial 2022, modelé xG con datos de Understat y armé un pipeline ETL para el Como 1907 en la Serie A.</span>
+          <span data-lang="en">Before working at a club, I used StatsBomb and Understat open data to practice and build a portfolio. I analyzed the 2022 World Cup, modeled xG with Understat data, and built an ETL pipeline for Como 1907 in Serie A.</span>
+        </div>
+        <div class="exp-tags">
+          <span class="tag">StatsBomb</span>
+          <span class="tag">Understat</span>
+          <span class="tag">Selenium</span>
+          <span class="tag">Plotly</span>
+          <span class="tag">Pandas</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <div class="section-title" data-lang="es">Repositorios</div>
+    <div class="section-title" data-lang="en">Repositories</div>
+
+    <a class="project-item" href="https://github.com/oyhenart/Estrella-Berisso-Analytics" target="_blank">
+      <div>
+        <div class="project-source" data-lang="es">Trabajo actual · En progreso</div>
+        <div class="project-source" data-lang="en">Current work · In progress</div>
+        <div class="project-title">Estrella-Berisso-Analytics</div>
+        <div class="project-desc">
+          <span data-lang="es">Todo lo que hice y estoy haciendo en el club. Análisis de juveniles (7ma, 8va, 9na) y el pipeline del Torneo Promocional Amateur, partido a partido.</span>
+          <span data-lang="en">Everything I've done and am currently doing at the club. Youth division analysis (7th, 8th, 9th) and the Promotional Amateur Tournament pipeline, match by match.</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
     </a>
 
-    <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/mundial_2022_statsbomb.ipynb" target="_blank">
-      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/scatter_flechas_pases.png?raw=true" alt="Tournament Analytics">
-      <div class="card-content">
-        <h3 class="es">Analítica de Torneos</h3>
-        <h3 class="en">Tournament Analytics</h3>
-        <p class="es">Análisis profundo de datos abiertos de StatsBomb para insights de rendimiento general.</p>
-        <p class="en">Deep dive into StatsBomb open data for tournament-wide performance insights.</p>
+    <a class="project-item" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/Mapa_de_calor.ipynb" target="_blank">
+      <div>
+        <div class="project-source">StatsBomb · Mundial 2022</div>
+        <div class="project-title">
+          <span data-lang="es">Mapa de calor — Final Argentina</span>
+          <span data-lang="en">Heatmap — Argentina Final</span>
+        </div>
+        <div class="project-desc">
+          <span data-lang="es">Análisis espacial y red de pases de la final del Mundial 2022 con datos de StatsBomb.</span>
+          <span data-lang="en">Spatial analysis and pass network of the 2022 World Cup Final using StatsBomb data.</span>
+        </div>
       </div>
+      <div class="project-arrow">↗</div>
     </a>
 
-    <a class="card" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/plantilla_understat_pro.ipynb" target="_blank">
-      <img src="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/outputs/xG-Como-1907.png?raw=true" alt="xG Modeling">
-      <div class="card-content">
-        <h3 class="es">Modelado de xG</h3>
-        <h3 class="en">xG Modeling</h3>
-        <p class="es">Análisis de goles esperados (xG) y modelado de varianza en la definición.</p>
-        <p class="en">Expected goals (xG) analysis and finishing variance modeling.</p>
+    <a class="project-item" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/plantilla_understat_pro.ipynb" target="_blank">
+      <div>
+        <div class="project-source">Understat · Como 1907</div>
+        <div class="project-title">
+          <span data-lang="es">xG y eficiencia goleadora</span>
+          <span data-lang="en">xG and finishing efficiency</span>
+        </div>
+        <div class="project-desc">
+          <span data-lang="es">Modelo de goles esperados con scraping de Understat y análisis de varianza en la definición para el Como 1907.</span>
+          <span data-lang="en">Expected goals model with Understat scraping and finishing variance analysis for Como 1907.</span>
+        </div>
       </div>
+      <div class="project-arrow">↗</div>
     </a>
 
-  </div>
-</section>
+    <a class="project-item" href="https://github.com/oyhenart/IAO-Football-Analytics/blob/main/notebooks/mundial_2022_statsbomb.ipynb" target="_blank">
+      <div>
+        <div class="project-source">StatsBomb · Open Data</div>
+        <div class="project-title">
+          <span data-lang="es">Analítica del torneo — Mundial 2022</span>
+          <span data-lang="en">Tournament analytics — 2022 World Cup</span>
+        </div>
+        <div class="project-desc">
+          <span data-lang="es">Métricas generales de rendimiento a nivel de torneo. Comparativas entre selecciones.</span>
+          <span data-lang="en">Tournament-wide performance metrics and comparative analysis between national teams.</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
 
-<section class="section">
-  <h2 class="es">Capacidades Principales</h2>
-  <h2 class="en">Core Capabilities</h2>
+  </section>
 
-  <div class="grid">
-    <div class="cap">
-      <span class="es">Análisis Táctico</span><span class="en">Tactical Analysis</span>
-      <span class="subtext es">Reconocimiento de patrones</span><span class="subtext en">Pattern recognition</span>
-    </div>
-    <div class="cap">
-      <span class="es">Ingeniería de Datos</span><span class="en">Data Engineering</span>
-      <span class="subtext es">ETL y Pipelines</span><span class="subtext en">ETL & Pipelines</span>
-    </div>
-    <div class="cap">
-      <span class="es">Modelos de Scouting</span><span class="en">Scouting Models</span>
-      <span class="subtext es">Similitud y Clustering</span><span class="subtext en">Similarity & Clustering</span>
-    </div>
-    <div class="cap">
-      <span class="es">Visualización</span><span class="en">Visualization</span>
-      <span class="subtext es">Reportes accionables</span><span class="subtext en">Actionable reports</span>
-    </div>
-  </div>
-</section>
+  <!-- STACK -->
+  <section id="stack">
+    <div class="section-title" data-lang="es">Herramientas que uso</div>
+    <div class="section-title" data-lang="en">Tools I use</div>
 
-<section class="section">
-  <h2 class="es">Stack Tecnológico y Herramientas</h2>
-  <h2 class="en">Tech Stack & Tools</h2>
+    <table class="stack-table">
+      <tr>
+        <td data-lang="es">Video</td>
+        <td data-lang="en">Video</td>
+        <td>LongoMatch</td>
+      </tr>
+      <tr>
+        <td data-lang="es">Datos</td>
+        <td data-lang="en">Data</td>
+        <td>FCPython · StatsBomb · Understat</td>
+      </tr>
+      <tr>
+        <td data-lang="es">Análisis</td>
+        <td data-lang="en">Analysis</td>
+        <td>Python · Pandas · NumPy · Jupyter</td>
+      </tr>
+      <tr>
+        <td data-lang="es">Visualización</td>
+        <td data-lang="en">Visualization</td>
+        <td>mplsoccer · Matplotlib · Plotly</td>
+      </tr>
+      <tr>
+        <td data-lang="es">Reportes</td>
+        <td data-lang="en">Reports</td>
+        <td>
+          <span data-lang="es">HTML con clips de video · PDF</span>
+          <span data-lang="en">HTML with video clips · PDF</span>
+        </td>
+      </tr>
+      <tr>
+        <td data-lang="es">Automatización</td>
+        <td data-lang="en">Automation</td>
+        <td>n8n · Selenium</td>
+      </tr>
+    </table>
+  </section>
 
-  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-    <div class="cap">Python <span class="subtext">Pandas, NumPy, Scikit</span></div>
-    <div class="cap">mplsoccer 
-      <span class="subtext es">Visualización de Cancha</span><span class="subtext en">Pitch Visualization</span>
-    </div>
-    <div class="cap">n8n 
-      <span class="subtext es">Automatización de Flujos</span><span class="subtext en">Workflow Automation</span>
-    </div>
-    <div class="cap">SQL 
-      <span class="subtext es">Gestión de Bases de Datos</span><span class="subtext en">Database Management</span>
-    </div>
-  </div>
-</section>
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="section-title" data-lang="es">Contacto</div>
+    <div class="section-title" data-lang="en">Contact</div>
 
-<section id="contact" class="section">
-  <h2 class="es">Conectemos</h2>
-  <h2 class="en">Let's Connect</h2>
+    <div class="contact-links">
+      <a class="contact-link" href="https://www.linkedin.com/in/israel-oyhenart" target="_blank">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-url">linkedin.com/in/israel-oyhenart</span>
+      </a>
+      <a class="contact-link" href="https://github.com/oyhenart" target="_blank">
+        <span class="contact-link-label">GitHub</span>
+        <span class="contact-link-url">github.com/oyhenart</span>
+      </a>
+      <a class="contact-link" href="https://github.com/oyhenart/Estrella-Berisso-Analytics" target="_blank">
+        <span class="contact-link-label">
+          <span data-lang="es">Repo Estrella de Berisso</span>
+          <span data-lang="en">Estrella de Berisso repo</span>
+        </span>
+        <span class="contact-link-url">github.com/oyhenart/Estrella-Berisso-Analytics</span>
+      </a>
+    </div>
+  </section>
 
-  <div class="cta">
-    <a href="https://www.linkedin.com/in/israel-oyhenart" target="_blank" class="btn es">Perfil de LinkedIn</a>
-    <a href="https://www.linkedin.com/in/israel-oyhenart" target="_blank" class="btn en">LinkedIn Profile</a>
-    
-    <a href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" class="btn es">Repositorio en GitHub</a>
-    <a href="https://github.com/oyhenart/IAO-Football-Analytics" target="_blank" class="btn en">GitHub Repository</a>
-  </div>
-</section>
+</main>
 
 <footer>
-  © 2026 Israel Oyhenart — Football Data Lab
+  <span class="footer-text">Israel Oyhenart · Buenos Aires, 2025</span>
+  <span class="footer-text">Football Analytics</span>
 </footer>
 
-</div>
-
 <script>
-  function toggleLanguage() {
-    const body = document.body;
-    const btn = document.getElementById('langBtn');
-    
-    body.classList.toggle('en-mode');
-    
-    if (body.classList.contains('en-mode')) {
-      btn.innerText = 'EN / ES';
-      document.documentElement.lang = 'en';
-    } else {
-      btn.innerText = 'ES / EN';
-      document.documentElement.lang = 'es';
-    }
-  }
+  const btn = document.getElementById('lang-toggle');
+  let lang = 'es';
+  btn.addEventListener('click', () => {
+    lang = lang === 'es' ? 'en' : 'es';
+    document.body.className = lang === 'en' ? 'en' : '';
+    btn.textContent = lang === 'es' ? 'EN' : 'ES';
+    document.documentElement.lang = lang;
+  });
 </script>
 
 </body>
